@@ -57,11 +57,11 @@ public class AnimeApiApplication {
 		options.addArguments("--disable-blink-features=AutomationControlled");
 		options.addArguments("--headless");
 		String userAgent = UserAgent.getRandomUserAgent();
-		options.addArguments(String.format("user-agent=\"%s\"", chromedriverPath));
+		options.addArguments(String.format("user-agent=\"%s\"", userAgent));
 		DesiredCapabilities dcap = new DesiredCapabilities();
 		dcap.setJavascriptEnabled(false);
 		options.merge(dcap);
-		System.out.println(userAgent);
+		//System.out.println(userAgent);
 		infoDriver = new ChromeDriver(options);
 		videoDriver = new ChromeDriver(options);
 		recentDriver = new ChromeDriver(options);
