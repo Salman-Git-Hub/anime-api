@@ -9,6 +9,7 @@ A Java Spring Rest Application for anime!
 1. [Animixplay.to](https://animixplay.to)
 2. Animepahe (*Not ready yet*)
 
+<hr>
 
 ## What's new ?
 
