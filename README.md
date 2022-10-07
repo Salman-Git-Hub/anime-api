@@ -7,7 +7,7 @@ A Java Spring Rest Application for anime!
 ## Supported sites
 
 1. [Animixplay.to](https://animixplay.to)
-2. Animepahe (*Not ready yet*)
+2. [Animepahe](https://animepahe.com)
 
 <hr>
 
