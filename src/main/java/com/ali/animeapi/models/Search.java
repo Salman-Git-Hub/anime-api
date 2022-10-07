@@ -1,12 +1,12 @@
-package com.ali.animeapi.sources.animixplay.parser;
+package com.ali.animeapi.models;
 
-public class SearchData {
+public class Search {
 
     private String title;
     private String url;
     private String cover;
 
-    public SearchData(String title, String url, String cover) {
+    public Search (String title, String url, String cover) {
         this.title = title;
         this.url = url;
         this.cover = cover;
@@ -23,4 +23,5 @@ public class SearchData {
     public String getCover() {
         return cover;
     }
+
 }

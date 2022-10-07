@@ -3,8 +3,8 @@ package com.ali.animeapi;
 import com.ali.animeapi.models.Episode;
 import com.ali.animeapi.models.Info;
 import com.ali.animeapi.models.Recent;
+import com.ali.animeapi.models.Search;
 import com.ali.animeapi.sources.AnimeSource;
-import com.ali.animeapi.sources.animixplay.parser.SearchData;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,7 +54,7 @@ public class AnimeApiApplication {
 	}
 
 	@GetMapping("/anime/search")
-	public List<SearchData> search(@RequestParam String q, @RequestParam String site) {
+	public List<Search> search(@RequestParam String q, @RequestParam String site) {
 		return animeSource.getAnimeSearch(q, site);
 	}
 

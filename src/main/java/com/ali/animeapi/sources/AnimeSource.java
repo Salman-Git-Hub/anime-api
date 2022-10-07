@@ -3,8 +3,9 @@ package com.ali.animeapi.sources;
 import com.ali.animeapi.models.Episode;
 import com.ali.animeapi.models.Info;
 import com.ali.animeapi.models.Recent;
+import com.ali.animeapi.models.Search;
+import com.ali.animeapi.sources.animepahe.Animepahe;
 import com.ali.animeapi.sources.animixplay.Animixplay;
-import com.ali.animeapi.sources.animixplay.parser.SearchData;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.Objects;
 
 public class AnimeSource {
     private Animixplay animixplay = new Animixplay();
+    private Animepahe animepahe = new Animepahe();
 
     public List<Recent> getRecent(String type, String q, String site) {
         return switch (type) {
@@ -24,40 +26,50 @@ public class AnimeSource {
     }
 
     public Info getAnimeInfo(String q, String site) {
-        if (Objects.equals(site, "animixplay")) {
-            try {
+
+        try {
+            if (Objects.equals(site, "animixplay")) {
                 return animixplay.getInfo(q);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return new Info(null, null, null, null, null, null, null,
-                        null, null);
+            } else if (Objects.equals(site, "animepahe")) {
+                return animepahe.getInfo(q);
             }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return new Info(null, null, null, null, null, null, null,
+                    null, null);
         }
         return new Info(null, null, null, null, null, null, null,
                 null, null);
     }
 
     public Episode getAnimeEpisode(String q, String ep, String site) {
-        if (Objects.equals(site, "animixplay")) {
-            try {
+        try {
+            if (Objects.equals(site, "animixplay")) {
                 return animixplay.getEpisode(q, ep);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return new Episode(null, null, ep);
+            } else if (Objects.equals(site, "animepahe")) {
+                return animepahe.getEpisode(q, ep);
             }
         }
-        return new Episode(null, null, ep);
+        catch (IOException e) {
+            e.printStackTrace();
+            return new Episode(null, null, null, null);
+        }
+        return new Episode(null, null, ep, null);
     }
 
-    public List<SearchData> getAnimeSearch(String q, String site) {
-        if (Objects.equals(site, "animixplay")) {
-            try {
+    public List<Search> getAnimeSearch(String q, String site) {
+        try {
+            if (Objects.equals(site, "animixplay")) {
                 return animixplay.getSearch(q);
             }
-            catch (IOException e) {
-                e.printStackTrace();
-                return new ArrayList<>();
+            else if (Objects.equals(site, "animepahe")) {
+                return animepahe.getSearch(q);
             }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
         }
         return new ArrayList<>();
     }
@@ -67,6 +79,8 @@ public class AnimeSource {
         try {
             if (Objects.equals(site, "animixplay")) {
                 return animixplay.getSubs(q);
+            } else if (Objects.equals(site, "animepahe")) {
+                return animepahe.getSubs(q);
             }
         }
         catch (IOException e) {

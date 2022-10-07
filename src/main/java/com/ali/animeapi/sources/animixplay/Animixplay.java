@@ -3,9 +3,9 @@ package com.ali.animeapi.sources.animixplay;
 import com.ali.animeapi.models.Episode;
 import com.ali.animeapi.models.Info;
 import com.ali.animeapi.models.Recent;
+import com.ali.animeapi.models.Search;
 import com.ali.animeapi.sources.animixplay.parser.InfoData;
 import com.ali.animeapi.sources.animixplay.parser.RecentResponseData;
-import com.ali.animeapi.sources.animixplay.parser.SearchData;
 import com.ali.animeapi.utils.Network;
 import com.ali.animeapi.utils.SourceLogger;
 import com.google.gson.GsonBuilder;
@@ -19,10 +19,7 @@ import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,6 +61,7 @@ public class Animixplay {
         RecentResponseData responseData = new GsonBuilder().create().fromJson(r.string(), RecentResponseData.class);
 
         if (responseData == null || responseData.getResult() == null) {
+            logger.warning("Process: responseData is null");
             return new ArrayList<>();
         }
         List<Recent> recent = new ArrayList<>();
@@ -201,7 +199,7 @@ public class Animixplay {
         JsonObject jsonObject = new GsonBuilder().create().fromJson(t.text(), JsonObject.class);
         if (jsonObject.isJsonNull()) {
             logger.warning("Process: JsonObject is null");
-            return new Episode(null, null, episode);
+            return new Episode(null, null, episode, null);
         }
         String gogoHdId = List.of(jsonObject.get(String.valueOf(Integer.parseInt(episode) - 1)).getAsString().split("=")).get(1);
         if (gogoHdId != null) {
@@ -214,7 +212,7 @@ public class Animixplay {
                 String enUrl = List.of(s.split("#")).get(1);
                 String streamUrl = new String(Base64.getDecoder().decode(enUrl.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
                 logger.info("Response: Success!");
-                return new Episode(apiUrl, streamUrl, episode);
+                return new Episode(apiUrl, streamUrl, episode, String.valueOf(System.currentTimeMillis()));
             }
             catch (IndexOutOfBoundsException e) {
                 logger.log(Level.SEVERE, "Process: Index Error\n" + e.getMessage());
@@ -223,12 +221,12 @@ public class Animixplay {
         }
         logger.log(Level.SEVERE, "Process: gogoHdId is null");
         logger.log(Level.SEVERE, "Response: Bad!");
-        return new Episode(null, null, episode);
+        return new Episode(null, null, episode, null);
 
     }
 
 
-    public List<SearchData> getSearch(String q) throws IOException {
+    public List<Search> getSearch(String q) throws IOException {
         logger.info(String.format("Requested: getSearch(); q=%s", q));
         RequestBody body = new FormBody.Builder()
                 .add("qfast", q)
@@ -240,21 +238,18 @@ public class Animixplay {
         Document doc = Jsoup.parse(html);
         List<Element> results = doc.getElementsByTag("a");
         logger.info(String.format("Process: %d threads", results.size()));
-        List<SearchData> searchData = new ArrayList<>();
+        List<Search> search = new ArrayList<>();
         for (Element e: results) {
-            Thread t = new Thread() {
-                @Override
-                public void run() {
-                    String title = e.attr("title");
-                    String url = e.attr("href");
-                    String cover = e.getElementsByClass("resultimg2").attr("src");
-                    searchData.add(new SearchData(title, url, cover));
-                }
-            };
+            Thread t = new Thread(() -> {
+                String title = e.attr("title");
+                String url = e.attr("href");
+                String cover = e.getElementsByClass("resultimg2").attr("src");
+                search.add(new Search(title, url, cover));
+            });
             t.run();
         }
         logger.info("Response: Success!");
-        return searchData;
+        return search;
 
     }
 
