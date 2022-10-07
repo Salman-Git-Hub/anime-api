@@ -21,4 +21,4 @@ Light weight compared to [previous one](https://github.com/Salman-Git-Hub/anime-
 
 ## Documentation
 
-For documentation, visit [here](https://documenter.getpostman.com/view/19991964/2s83zfS6W8#b16c341c-0946-4624-a48f-1ac006bdf5b5)
+For documentation, visit [here](https://documenter.getpostman.com/view/19991964/2s83zfS6W8)
