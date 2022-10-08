@@ -18,6 +18,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Level;
@@ -32,7 +34,8 @@ public class Animixplay {
     private final Network network = new Network();
     private SourceLogger sourceLogger = new SourceLogger("Animixplay");
     private Logger logger = sourceLogger.getLogger();
-
+    CookieManager cookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
+    JavaNetCookieJar cookieJar = new JavaNetCookieJar(cookieManager);
     private final OkHttpClient client = new OkHttpClient.Builder()
             .addNetworkInterceptor(new Interceptor() {
                 @NotNull
@@ -43,6 +46,7 @@ public class Animixplay {
                     return chain.proceed(chain.request());
                 }
             })
+            .cookieJar(cookieJar)
             .build();
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 

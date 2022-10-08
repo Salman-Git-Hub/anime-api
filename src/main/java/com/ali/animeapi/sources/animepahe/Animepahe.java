@@ -20,6 +20,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,6 +39,8 @@ public class Animepahe {
     private final Network network = new Network();
     private final SourceLogger sourceLogger = new SourceLogger("AnimePahe");
     private final Logger logger = sourceLogger.getLogger();
+    CookieManager cookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
+    JavaNetCookieJar cookieJar = new JavaNetCookieJar(cookieManager);
 
     private final OkHttpClient client = new OkHttpClient.Builder()
             .addNetworkInterceptor(new Interceptor() {
@@ -47,8 +51,8 @@ public class Animepahe {
                     return chain.proceed(chain.request());
                 }
             })
+            .cookieJar(cookieJar)
             .build();
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
 
     public List<Recent> getSubs(String page) throws IOException {
