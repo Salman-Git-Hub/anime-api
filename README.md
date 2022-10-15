@@ -8,6 +8,7 @@ A Java Spring Rest Application for anime!
 
 1. [Animixplay](https://animixplay.to)
 2. [Animepahe](https://animepahe.com)
+3. [Gogoanime](https://gogoanime.dk)
 
 <hr>
 
