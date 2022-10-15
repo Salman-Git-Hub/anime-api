@@ -56,6 +56,9 @@ public class Animepahe {
 
 
     public List<Recent> getSubs(String page) throws IOException {
+        if (page == null) {
+            page = "1";
+        }
         logger.info(String.format("Requested: getSubs(); page=%s", page));
         String uri = String.format(subUrl, page);
         Request request = network.GET(uri, null);
@@ -98,16 +101,16 @@ public class Animepahe {
             if (e.text().contains("Type:")) {
                 type = e.getElementsByTag("a").text();
             }
-            if (e.text().contains("Status:")) {
+            else if (e.text().contains("Status:")) {
                 status = e.getElementsByTag("a").text();
             }
-            if (e.text().contains("Aired:")) {
+            else if (e.text().contains("Aired:")) {
                 aired = e.ownText();
             }
-            if (e.text().contains("Season:")) {
+            else if (e.text().contains("Season:")) {
                 season = e.getElementsByTag("a").text();
             }
-            if (e.text().contains("Studio:")) {
+            else if (e.text().contains("Studio:")) {
                 studio = e.ownText();
             }
 

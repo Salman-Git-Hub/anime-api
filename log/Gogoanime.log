@@ -1,0 +1,16 @@
+Oct 15, 2022 5:45:09 PM com.ali.animeapi.sources.gogoanime.Gogoanime getSearch
+INFO: Requested: getSearch(); q=date-a-live-iv
+Oct 15, 2022 5:45:10 PM com.ali.animeapi.sources.gogoanime.Gogoanime$1 intercept
+INFO: Network: https://ajax.gogo-load.com/site/loadAjaxSearch?keyword=date-a-live-iv&id=-1&link_web=https://gogoanime.dk/
+Oct 15, 2022 5:45:11 PM com.ali.animeapi.sources.gogoanime.Gogoanime getSearch
+INFO: Process: 5 threads
+Oct 15, 2022 5:45:11 PM com.ali.animeapi.sources.gogoanime.Gogoanime getSearch
+INFO: Response: Success!
+Oct 15, 2022 5:46:11 PM com.ali.animeapi.sources.gogoanime.Gogoanime getSearch
+INFO: Requested: getSearch(); q=date a 
+Oct 15, 2022 5:46:11 PM com.ali.animeapi.sources.gogoanime.Gogoanime$1 intercept
+INFO: Network: https://ajax.gogo-load.com/site/loadAjaxSearch?keyword=date%20a%20&id=-1&link_web=https://gogoanime.dk/
+Oct 15, 2022 5:46:12 PM com.ali.animeapi.sources.gogoanime.Gogoanime getSearch
+INFO: Process: 10 threads
+Oct 15, 2022 5:46:12 PM com.ali.animeapi.sources.gogoanime.Gogoanime getSearch
+INFO: Response: Success!

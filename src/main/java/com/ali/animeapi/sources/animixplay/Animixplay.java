@@ -21,7 +21,9 @@ import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -95,7 +97,7 @@ public class Animixplay {
         for (RecentResponseData.ResponseDataItems item: recentResponseData.getResult()) {
             String title = item.getTitle();
             String cover = item.getPicture();
-            String url = item.getUrl();
+            String url = "https://animixplay.to" + item.getUrl();
             popular.add(new Recent(title, null, url, cover, null));
         }
         logger.info("Response: Success!");
@@ -119,7 +121,7 @@ public class Animixplay {
         List<Recent> movies = new ArrayList<>();
         for (RecentResponseData.ResponseDataItems item: recentResponseData.getResult()) {
             String title = item.getTitle();
-            String url = item.getUrl();
+            String url = "https://animixplay.to" + item.getUrl();
             String cover = item.getPicture();
             movies.add(new Recent(title, null, url, cover, null));
         }
@@ -246,7 +248,7 @@ public class Animixplay {
         for (Element e: results) {
             Thread t = new Thread(() -> {
                 String title = e.attr("title");
-                String url = e.attr("href");
+                String url = "https://animixplay.to" +  e.attr("href");
                 String cover = e.getElementsByClass("resultimg2").attr("src");
                 search.add(new Search(title, url, cover));
             });

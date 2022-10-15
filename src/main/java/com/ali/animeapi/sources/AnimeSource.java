@@ -6,6 +6,7 @@ import com.ali.animeapi.models.Recent;
 import com.ali.animeapi.models.Search;
 import com.ali.animeapi.sources.animepahe.Animepahe;
 import com.ali.animeapi.sources.animixplay.Animixplay;
+import com.ali.animeapi.sources.gogoanime.Gogoanime;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Objects;
 public class AnimeSource {
     private Animixplay animixplay = new Animixplay();
     private Animepahe animepahe = new Animepahe();
+    private Gogoanime gogoanime = new Gogoanime();
 
     public List<Recent> getRecent(String type, String q, String site) {
         return switch (type) {
@@ -32,6 +34,8 @@ public class AnimeSource {
                 return animixplay.getInfo(q);
             } else if (Objects.equals(site, "animepahe")) {
                 return animepahe.getInfo(q);
+            } else if (Objects.equals(site, "gogoanime")) {
+                return gogoanime.getInfo(q);
             }
         }
         catch (IOException e) {
@@ -49,6 +53,8 @@ public class AnimeSource {
                 return animixplay.getEpisode(q, ep);
             } else if (Objects.equals(site, "animepahe")) {
                 return animepahe.getEpisode(q, ep);
+            } else if (Objects.equals(site, "gogoanime")) {
+                return gogoanime.getEpisode(q, ep);
             }
         }
         catch (IOException e) {
@@ -65,6 +71,8 @@ public class AnimeSource {
             }
             else if (Objects.equals(site, "animepahe")) {
                 return animepahe.getSearch(q);
+            } else if (Objects.equals(site, "gogoanime")) {
+                return gogoanime.getSearch(q);
             }
         }
         catch (IOException e) {
@@ -81,6 +89,8 @@ public class AnimeSource {
                 return animixplay.getSubs(q);
             } else if (Objects.equals(site, "animepahe")) {
                 return animepahe.getSubs(q);
+            } else if (Objects.equals(site, "gogoanime")) {
+                return gogoanime.getSubs(q);
             }
         }
         catch (IOException e) {
@@ -95,6 +105,8 @@ public class AnimeSource {
         try {
             if (Objects.equals(site, "animixplay")) {
                 return animixplay.getPopulars();
+            } else if (Objects.equals(site, "gogoanime")) {
+                return gogoanime.getPopulars();
             }
         }
         catch (IOException e) {
@@ -108,6 +120,8 @@ public class AnimeSource {
         try {
             if (Objects.equals(site, "animixplay")) {
                 return animixplay.getMovies(q);
+            } else if (Objects.equals(site, "gogoanime")) {
+                return gogoanime.getMovies(q);
             }
         }
         catch (IOException e) {
