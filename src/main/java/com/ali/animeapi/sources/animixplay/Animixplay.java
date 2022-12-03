@@ -168,7 +168,7 @@ public class Animixplay {
         List<String> eps = new ArrayList<>();
         for (String e: jsonObject.keySet()) {
             if (!e.equals("eptotal") && !e.equals("extra")) {
-                eps.add(e);
+                eps.add(String.valueOf(Integer.valueOf(e) + 1));
             }
         }
         try {
